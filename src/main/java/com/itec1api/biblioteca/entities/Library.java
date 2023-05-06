@@ -1,4 +1,5 @@
 package com.itec1api.biblioteca.entities;
 
-public class Library {
+public class Library extends BaseEntity {
+
 }
