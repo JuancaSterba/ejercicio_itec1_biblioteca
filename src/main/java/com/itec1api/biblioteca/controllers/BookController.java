@@ -4,10 +4,7 @@ import com.itec1api.biblioteca.DTO.BookResponseDTO;
 import com.itec1api.biblioteca.services.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,8 +23,8 @@ public class BookController {
 //        return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
 //    }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public ResponseEntity<List<BookResponseDTO>> getOne(@PathVariable String name) {
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<BookResponseDTO>> getOne(@RequestParam String name) {
         List<BookResponseDTO> responseDTOS = bookService.findByName(name);
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
     }
