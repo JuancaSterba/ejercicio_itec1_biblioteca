@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/libraries/books")
 public class BookController {
@@ -39,11 +40,15 @@ public class BookController {
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-
-    @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@PathVariable Long id) { return null; }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable Long id) { return null; }
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseEntity<BookResponseDTO> update(@RequestParam String name, @RequestBody BookRequestDTO requestDTO) {
+        BookResponseDTO responseDTO = new BookResponseDTO();
+        responseDTO = bookServiceImpl.update(name, requestDTO);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
 
 }

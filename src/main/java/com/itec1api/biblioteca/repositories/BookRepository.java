@@ -1,10 +1,12 @@
 package com.itec1api.biblioteca.repositories;
 
+import com.itec1api.biblioteca.DTO.BookRequestDTO;
 import com.itec1api.biblioteca.entities.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BookRepository {
@@ -44,8 +46,26 @@ public class BookRepository {
         return books;
     }
 
-
     public void save(Book book) {
         books.add(book);
     }
+
+    public Book findByName(String name) {
+        return books.stream()
+                .filter(b -> b.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void update(String name, BookRequestDTO bookRequestDTO) {
+        Book book = findByName(name);
+        if (book != null) {
+            book.setName(bookRequestDTO.getName());
+            book.setAuthor(bookRequestDTO.getAuthor());
+            book.setEditorial(bookRequestDTO.getEditorial());
+            book.setPublishedYear(bookRequestDTO.getPublishedYear());
+            book.setGenre(bookRequestDTO.getGenre());
+        }
+    }
+
 }

@@ -18,14 +18,6 @@ public class BookServiceImpl implements BookService<BookRequestDTO, BookResponse
         this.bookRepository = bookRepository;
     }
 
-    private Book fromRequestDTO(BookRequestDTO bookRequestDTO) {
-        Book book = new Book();
-        book.setName(bookRequestDTO.getName());
-        book.setEditorial(bookRequestDTO.getEditorial());
-        book.setPublishedYear(bookRequestDTO.getPublishedYear());
-        return book;
-    }
-
     @Override
     public BookResponseDTO save(BookRequestDTO bookRequestDTO) {
         Book book = new Book();
@@ -39,9 +31,20 @@ public class BookServiceImpl implements BookService<BookRequestDTO, BookResponse
     }
 
     @Override
-    public BookResponseDTO update(BookRequestDTO bookRequestDTO, Integer id) {
-        return null;
+    public BookResponseDTO update(String name, BookRequestDTO bookRequestDTO) {
+        Book book = bookRepository.findByName(name);
+        if (book == null) {
+            // Si el libro no existe, devuelve null o lanza una excepción
+            return null;
+        }
+        book.setName(bookRequestDTO.getName());
+        book.setAuthor(bookRequestDTO.getAuthor());
+        book.setEditorial(bookRequestDTO.getEditorial());
+        book.setPublishedYear(bookRequestDTO.getPublishedYear());
+        book.setGenre(bookRequestDTO.getGenre());
+        return new BookResponseDTO().toDTO(book);
     }
+
 
     @Override
     public BookResponseDTO delete(Integer id) {
@@ -56,17 +59,18 @@ public class BookServiceImpl implements BookService<BookRequestDTO, BookResponse
     @Override
     public List<BookResponseDTO> findAll() {
         BookResponseDTO bookResponseDTO = new BookResponseDTO();
-        return this.bookRepository.getBooks().stream()
+        return this.bookRepository.getBooks()
+                .stream()
                 .map(b -> bookResponseDTO.toDTO(b))
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public List<BookResponseDTO> findByName(String name) {
         BookResponseDTO bookResponseDTO = new BookResponseDTO();
-        return this.bookRepository.getBooks().stream()
-                .filter(b -> b.getName().matches(name))
+        return this.bookRepository.getBooks()
+                .stream()
+                .filter(b -> b.getName().contains(name))
                 .map(b -> bookResponseDTO.toDTO(b))
                 .collect(Collectors.toList());
     }
