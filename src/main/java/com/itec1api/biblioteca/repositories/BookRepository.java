@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookRepository {
@@ -51,11 +52,10 @@ public class BookRepository {
         books.add(book);
     }
 
-    public Book findByName(String name) {
+    public List<Book> findByName(String nameToSearch) {
         return books.stream()
-                .filter(b -> b.getName().equals(name))
-                .findFirst()
-                .orElse(null);
+                .filter(b -> b.getName().contains(nameToSearch))
+                .collect(Collectors.toList());
     }
 
     public Book update(Book bookToUpdate) {
@@ -75,5 +75,7 @@ public class BookRepository {
         return null;
     }
 
+    public void delete(Book bookToDelete) {
 
+    }
 }

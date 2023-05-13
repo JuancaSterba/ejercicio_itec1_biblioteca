@@ -6,6 +6,8 @@ import com.itec1api.biblioteca.entities.Book;
 import com.itec1api.biblioteca.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,12 +70,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDTO> findByName(String name) {
-        BookResponseDTO bookResponseDTO = new BookResponseDTO();
-        return this.bookRepository.getBooks()
-                .stream()
-                .filter(b -> b.getName().contains(name))
-                .map(b -> bookResponseDTO.toDTO(b))
+    public List<BookResponseDTO> findByName(String nameToSearch) {
+        List<Book> books = bookRepository.findByName(nameToSearch);
+        return books.stream()
+                .map(BookResponseDTO::toDTO)
                 .collect(Collectors.toList());
     }
+
 }

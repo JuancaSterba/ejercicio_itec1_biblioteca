@@ -30,10 +30,10 @@ public class BookController {
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<BookResponseDTO>> getOne(@RequestParam String name) {
-        List<BookResponseDTO> responseDTOS = bookService.findByName(name);
-        return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
+    @RequestMapping(value = "/{nameToSearch}", method = RequestMethod.GET)
+    public ResponseEntity<List<BookResponseDTO>> getOne(@PathVariable String nameToSearch) {
+        List<BookResponseDTO> bookResponseDTO = bookService.findByName(nameToSearch);
+        return new ResponseEntity<>(bookResponseDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

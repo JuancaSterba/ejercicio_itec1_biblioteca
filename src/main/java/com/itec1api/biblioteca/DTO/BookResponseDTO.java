@@ -12,7 +12,7 @@ public class BookResponseDTO {
     private Integer publishedYear;
     private String genre;
 
-    public BookResponseDTO toDTO(Book book) {
+    public static BookResponseDTO toDTO(Book book) {
         BookResponseDTO bookResponseDTO = new BookResponseDTO();
         bookResponseDTO.setName(book.getName());
         bookResponseDTO.setAuthor(book.getAuthor());
