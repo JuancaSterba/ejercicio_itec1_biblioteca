@@ -31,7 +31,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/{nameToSearch}", method = RequestMethod.GET)
-    public ResponseEntity<List<BookResponseDTO>> getOne(@PathVariable String nameToSearch) {
+    public ResponseEntity<List<BookResponseDTO>> getByName(@PathVariable String nameToSearch) {
         List<BookResponseDTO> bookResponseDTO = bookService.findByName(nameToSearch);
         return new ResponseEntity<>(bookResponseDTO, HttpStatus.OK);
     }
@@ -42,11 +42,14 @@ public class BookController {
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> delete(@PathVariable Long id) { return null; }
+    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deletebyName(@PathVariable String name) {
+        BookResponseDTO bookResponseDTO = bookService.delete(name);
+        return new ResponseEntity<>(bookResponseDTO, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseEntity<BookResponseDTO> update(@RequestBody BookRequestDTO requestDTO) {
+    public ResponseEntity<BookResponseDTO> updateByName(@RequestBody BookRequestDTO requestDTO) {
         BookResponseDTO bookResponseDTO = bookService.update(requestDTO);
         return new ResponseEntity<>(bookResponseDTO, HttpStatus.OK);
     }

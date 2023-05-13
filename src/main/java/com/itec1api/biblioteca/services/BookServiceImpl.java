@@ -44,15 +44,22 @@ public class BookServiceImpl implements BookService {
         );
         Book updatedBook = bookRepository.update(bookToUpdate);
         if (updatedBook != null) {
-            return new BookResponseDTO().toDTO(updatedBook);
+            new BookResponseDTO();
+            return BookResponseDTO.toDTO(updatedBook);
         } else {
             return null; // or throw an exception, depending on your design
         }
     }
 
     @Override
-    public BookResponseDTO delete(Integer id) {
-        return null;
+    public BookResponseDTO delete(String name) {
+        Book deletedBook = bookRepository.deleteByName(name);
+        if (deletedBook != null) {
+            new BookResponseDTO();
+            return BookResponseDTO.toDTO(deletedBook);
+        } else {
+            return null;
+        }
     }
 
     @Override

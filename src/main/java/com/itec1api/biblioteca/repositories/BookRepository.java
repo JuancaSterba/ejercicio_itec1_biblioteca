@@ -75,7 +75,14 @@ public class BookRepository {
         return null;
     }
 
-    public void delete(Book bookToDelete) {
-
+    public Book deleteByName(String name) {
+        for (Book book : books) {
+            if (book.getName().equals(name)) {
+                books.remove(book);
+                return book;
+            }
+        }
+        return null; // si no se encuentra el libro, se retorna null
     }
+
 }
