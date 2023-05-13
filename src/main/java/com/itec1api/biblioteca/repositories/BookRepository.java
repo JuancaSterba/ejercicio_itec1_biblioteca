@@ -1,6 +1,7 @@
 package com.itec1api.biblioteca.repositories;
 
 import com.itec1api.biblioteca.DTO.BookRequestDTO;
+import com.itec1api.biblioteca.DTO.BookResponseDTO;
 import com.itec1api.biblioteca.entities.Book;
 import org.springframework.stereotype.Repository;
 
@@ -57,15 +58,22 @@ public class BookRepository {
                 .orElse(null);
     }
 
-    public void update(String name, BookRequestDTO bookRequestDTO) {
-        Book book = findByName(name);
-        if (book != null) {
-            book.setName(bookRequestDTO.getName());
-            book.setAuthor(bookRequestDTO.getAuthor());
-            book.setEditorial(bookRequestDTO.getEditorial());
-            book.setPublishedYear(bookRequestDTO.getPublishedYear());
-            book.setGenre(bookRequestDTO.getGenre());
+    public Book update(Book bookToUpdate) {
+        Optional<Book> bookOptional = books.stream()
+                .filter(book -> book.getName().equals(bookToUpdate.getName()))
+                .findFirst();
+
+        if (bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            book.setAuthor(bookToUpdate.getAuthor());
+            book.setEditorial(bookToUpdate.getEditorial());
+            book.setPublishedYear(bookToUpdate.getPublishedYear());
+            book.setGenre(bookToUpdate.getGenre());
+            return book;
         }
+
+        return null;
     }
+
 
 }

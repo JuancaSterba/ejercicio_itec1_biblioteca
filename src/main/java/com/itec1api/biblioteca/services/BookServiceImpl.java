@@ -7,10 +7,11 @@ import com.itec1api.biblioteca.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class BookServiceImpl implements BookService<BookRequestDTO, BookResponseDTO> {
+public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
 
@@ -31,20 +32,21 @@ public class BookServiceImpl implements BookService<BookRequestDTO, BookResponse
     }
 
     @Override
-    public BookResponseDTO update(String name, BookRequestDTO bookRequestDTO) {
-        Book book = bookRepository.findByName(name);
-        if (book == null) {
-            // Si el libro no existe, devuelve null o lanza una excepción
-            return null;
+    public BookResponseDTO update(BookRequestDTO bookRequestDTO) {
+        Book bookToUpdate = new Book(
+                bookRequestDTO.getName(),
+                bookRequestDTO.getAuthor(),
+                bookRequestDTO.getEditorial(),
+                bookRequestDTO.getPublishedYear(),
+                bookRequestDTO.getGenre()
+        );
+        Book updatedBook = bookRepository.update(bookToUpdate);
+        if (updatedBook != null) {
+            return new BookResponseDTO().toDTO(updatedBook);
+        } else {
+            return null; // or throw an exception, depending on your design
         }
-        book.setName(bookRequestDTO.getName());
-        book.setAuthor(bookRequestDTO.getAuthor());
-        book.setEditorial(bookRequestDTO.getEditorial());
-        book.setPublishedYear(bookRequestDTO.getPublishedYear());
-        book.setGenre(bookRequestDTO.getGenre());
-        return new BookResponseDTO().toDTO(book);
     }
-
 
     @Override
     public BookResponseDTO delete(Integer id) {
