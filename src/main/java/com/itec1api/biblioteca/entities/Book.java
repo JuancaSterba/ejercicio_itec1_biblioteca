@@ -1,7 +1,5 @@
 package com.itec1api.biblioteca.entities;
 
-import com.itec1api.biblioteca.DTO.BookRequestDTO;
-import com.itec1api.biblioteca.DTO.BookResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
