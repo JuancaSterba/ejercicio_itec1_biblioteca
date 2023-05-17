@@ -1,10 +1,8 @@
-package com.itec1api.biblioteca.DTO;
+package com.itec1api.biblioteca.DTO.response;
 
+import com.itec1api.biblioteca.DTO.request.AuthorRequestDTO;
 import com.itec1api.biblioteca.entities.Author;
-import com.itec1api.biblioteca.entities.Book;
 import lombok.Data;
-
-import javax.persistence.Column;
 
 @Data
 public class AuthorResponseDTO {
@@ -18,8 +16,6 @@ public class AuthorResponseDTO {
         AuthorResponseDTO authorResponseDTO = new AuthorResponseDTO();
         authorResponseDTO.setName(author.getName());
         authorResponseDTO.setLastName(author.getLastName());
-        authorResponseDTO.setNationality(author.getNationality());
-        authorResponseDTO.setDescription(author.getDescription());
         return authorResponseDTO;
     }
 
@@ -27,8 +23,6 @@ public class AuthorResponseDTO {
         Author author = new Author();
         author.setName(author.getName());
         author.setLastName(author.getLastName());
-        author.setNationality(author.getNationality());
-        author.setDescription(author.getDescription());
         return author;
     }
 }

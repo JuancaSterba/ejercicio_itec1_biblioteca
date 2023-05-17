@@ -1,7 +1,7 @@
 package com.itec1api.biblioteca.services;
 
-import com.itec1api.biblioteca.DTO.BookRequestDTO;
-import com.itec1api.biblioteca.DTO.BookResponseDTO;
+import com.itec1api.biblioteca.DTO.request.BookRequestDTO;
+import com.itec1api.biblioteca.DTO.response.BookResponseDTO;
 
 import java.util.List;
 

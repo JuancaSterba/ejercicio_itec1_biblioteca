@@ -1,7 +1,5 @@
 package com.itec1api.biblioteca.repositories;
 
-import com.itec1api.biblioteca.DTO.BookRequestDTO;
-import com.itec1api.biblioteca.DTO.BookResponseDTO;
 import com.itec1api.biblioteca.entities.Book;
 import org.springframework.stereotype.Repository;
 
@@ -21,16 +19,16 @@ public class BookRepository {
     public void init() {
 
         this.books = new ArrayList<>();
-        Book book01 = new Book("Libro 1", "Autor 1","Editorial 1",2015, "genero 1");
-        Book book02 = new Book("Libro 2", "Autor 2","Editorial 2",2015, "genero 2");
-        Book book03 = new Book("Libro 3", "Autor 3","Editorial 3",2015, "genero 3");
-        Book book04 = new Book("Libro 4", "Autor 4","Editorial 1",2015, "genero 4");
-        Book book05 = new Book("Libro 5", "Autor 1","Editorial 2",2015, "genero 5");
-        Book book06 = new Book("Libro 6", "Autor 2","Editorial 3",2015, "genero 1");
-        Book book07 = new Book("Libro 7", "Autor 3","Editorial 1",2015, "genero 2");
-        Book book08 = new Book("Libro 8", "Autor 4","Editorial 2",2015, "genero 3");
-        Book book09 = new Book("Libro 9", "Autor 1","Editorial 3",2015, "genero 4");
-        Book book10 = new Book("Libro 10", "Autor 2","Editorial 1",2015, "genero 5");
+        Book book01 = new Book("", "", "", 123);
+        Book book02 = new Book("", "", "", 123);
+        Book book03 = new Book("", "", "", 123);
+        Book book04 = new Book("", "", "", 123);
+        Book book05 = new Book("", "", "", 123);
+        Book book06 = new Book("", "", "", 123);
+        Book book07 = new Book("", "", "", 123);
+        Book book08 = new Book("", "", "", 123);
+        Book book09 = new Book("", "", "", 123);
+        Book book10 = new Book("", "", "", 123);
 
         books.add(book01);
         books.add(book02);
@@ -65,10 +63,8 @@ public class BookRepository {
 
         if (bookOptional.isPresent()) {
             Book book = bookOptional.get();
-            book.setAuthor(bookToUpdate.getAuthor());
             book.setEditorial(bookToUpdate.getEditorial());
             book.setPublishedYear(bookToUpdate.getPublishedYear());
-            book.setGenre(bookToUpdate.getGenre());
             return book;
         }
 
